@@ -13,15 +13,14 @@ import java.awt.Rectangle;
  *
  * @author Sevinc Sarayeva
  */
-public class Player extends GameObject {
+public class Player extends Character {
 
     private Handler handler;
     boolean[] keyPressed = new boolean[5];
     private int health;
     private int coin;
     Color color;
-    private float speed2 = 0.05f;
-    private float friction = 0.01f;
+    private float speed = 0.05f;
     private float jumping = 5;
     private int counterTrig = 0;
     private boolean onPlatform = false;
@@ -33,8 +32,8 @@ public class Player extends GameObject {
         this.handler = StaticFields.handler;
         velX = 0;
         velY = 0;
-        width = 50;
-        height = 50;
+        width = 16 * GSpace.multSize;
+        height = 16 * GSpace.multSize;
         keyPressed[0] = false;
         keyPressed[1] = false;
         keyPressed[2] = false;
@@ -96,63 +95,62 @@ public class Player extends GameObject {
             velY -= jumping;
             //isFalling = true;
             isJumping = true;
+            onAir = true;
         }
         if (!isFalling) {
             if (keyPressed[1]) {
-                velX += -speed2;
+                velX += -speed;
             }
 
             if (keyPressed[2]) {
-                velX += speed2;
+                velX += speed;
             }
             if (keyPressed[4]) {
-                velY += speed2;
+                velY += speed;
             }
 
         } else {
             if (keyPressed[1]) {
-                velX += -speed2 / 2;
+                velX += -speed / 2;
             }
             if (keyPressed[2]) {
-                velX += speed2 / 2;
+                velX += speed / 2;
             }
             if (keyPressed[4]) {
-                velY += speed2;
+                velY += speed;
             }
         }
     }
 
-    private void collision() {
-        isFalling = true;
-        onAir = true;
-        for (int i = 0; i < handler.getObjects().size(); i++) {
-            GameObject temp = handler.getObjects().get(i);
-            if (this.getBounds().intersects(temp.getBounds())) {
-                switch (temp.getId()) {
-                    case platform:
-                        if (temp.getBounds().intersects(getBounds()) && velY > 0) {
-                            isFalling = false;
-                            velY = 0;
-                            y = temp.getY() - height - 2;
-                        }
-                        if (temp.getBounds().intersects(getUnderBounds())) {
-                            isFalling = false;
-                            onAir = false;
-                        }
-                        break;
-                }
-
-            }
-        }
-    }
+//    protected void collision() {
+//        isFalling = true;
+//        onAir = true;
+//        for (int i = 0; i < handler.getObjects().size(); i++) {
+//            GameObject temp = handler.getObjects().get(i);
+//            if (this.getBounds().intersects(temp.getBounds())) {
+//                switch (temp.getId()) {
+//                    case platform:
+//                        if (temp.getBounds().intersects(getBounds()) && velY > 0) {
+//                            isFalling = false;
+//                            velY = 0;
+//                            y = temp.getY() - height - 2;
+//                        }
+//                        if (temp.getBounds().intersects(getUnderBounds())) {
+//                            isFalling = false;
+//                            onAir = false;
+//                        }
+//                        break;
+//                }
+//
+//            }
+//        }
+//    }
 
     private Rectangle getHeadArea() {
         return new Rectangle((int) x + 10, (int) y - 10, 30, 30);
     }
 
-    private Rectangle getUnderBounds() {
-        return new Rectangle((int) x + width / 6, (int) (y + height - 5), (int) (width - width / 3), (int) 20);
-    }
+    
 
 //            } else if (temp.getId() == ID.SimpleEnemy) {
 //                if (this.getBounds().intersects(temp.getBounds())) {

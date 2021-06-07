@@ -21,6 +21,13 @@ public class Camera extends GameObject{
         player = StaticFields.player;
     }
 
+    public Camera() {
+        super(0, 0, ID.CAMERA);
+        this.player = GSpace.getPlayer();
+        this.height = GSpace.getPlayer().getHeight();
+        this.width = GSpace.getPlayer().getWidth();
+
+    }
     @Override
     public Rectangle getBounds() {
     return new Rectangle(x, y, width, height);

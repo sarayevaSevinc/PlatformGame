@@ -21,48 +21,73 @@ import javax.imageio.ImageIO;
  */
 public class Platform extends GameObject {
 
-    private Handler handler;
-    BufferedImage image = null;
+//    private Handler handler;
+//    BufferedImage image = null;
+//
+//    public Platform(int x, int y, ID id) {
+//        super(x, y, id);
+//        this.handler = StaticFields.handler;
+//        velX = 5;
+//        velY = 5;
+//        width = 75;
+//        height = 50;
+//        hasGravity = false;
+//        isFalling = false;
+//        if (image == null) {
+//            File file = new File("C:\\Users\\user\\Documents\\NetBeansProjects\\SuperMario\\src\\game.res\\brick.png");
+//            try {
+//                image = ImageIO.read(file);
+//            } catch (IOException ex) {
+//                Logger.getLogger(Platform.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
+//
+//    @Override
+//    public Rectangle getBounds() {
+//        return new Rectangle(x, y, width, height);
+//    }
+//
+//    @Override
+//    public void tick() {
+////        x += velX;
+////        y += velY;
+////        changeDirection();
+////        x = clamp(x, 0, Game.WIDTH - width);
+////        y = clamp(y, 0, Game.HEIGHT - height);
+//    }
+//
+//    @Override
+//    public void render(Graphics g) {
+//
+//        g.drawImage(image, (int) x, (int) y, width, height, null);
+////        g.setColor(Color.MAGENTA);
+////        g.fill3DRect(x, y, width, height, true);
+//    }
+  private final Color color;
+    private boolean playerOn = false;
 
     public Platform(int x, int y, ID id) {
         super(x, y, id);
-        this.handler = StaticFields.handler;
-        velX = 5;
-        velY = 5;
-        width = 75;
-        height = 50;
+        this.color = Color.MAGENTA;
+        width = 128;
+        height = 16;
         hasGravity = false;
         isFalling = false;
-        if (image == null) {
-            File file = new File("C:\\Users\\user\\Documents\\NetBeansProjects\\SuperMario\\src\\game.res\\brick.png");
-            try {
-                image = ImageIO.read(file);
-            } catch (IOException ex) {
-                Logger.getLogger(Platform.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    @Override
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
     }
 
     @Override
     public void tick() {
-//        x += velX;
-//        y += velY;
-//        changeDirection();
-//        x = clamp(x, 0, Game.WIDTH - width);
-//        y = clamp(y, 0, Game.HEIGHT - height);
+        if (playerOn) {
+            x += Math.round(velX);
+            GSpace.getPlayer().setX(GSpace.getPlayer().getX() + Math.round(velX));
+        }
     }
 
     @Override
     public void render(Graphics g) {
-
-        g.drawImage(image, (int) x, (int) y, width, height, null);
-//        g.setColor(Color.MAGENTA);
-//        g.fill3DRect(x, y, width, height, true);
+        g.setColor(color);
+        g.fill3DRect( x,  y, width, height, true);
+//        g.drawImage(Animation.platform.get(0),  x,  y, width, height, null);
     }
-
 }

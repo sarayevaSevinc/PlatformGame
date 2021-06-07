@@ -11,5 +11,5 @@ package pkgsuper.mario;
  * @author Sevinc Sarayeva
  */
 public enum ID {
-    Player, platform, Camera, BoxTrigger;
+  PLAYER, CAMERA, PLATFORM, BOX_TRIGGER, GROUND, SURPRIZE_BOX, WALL, ENEMY, BULLET;
 }

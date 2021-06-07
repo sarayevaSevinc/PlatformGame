@@ -37,9 +37,9 @@ public class Game extends Canvas implements Runnable {
     private void init() {
         this.handler = new Handler();
         StaticFields.handler = this.handler;
-        StaticFields.player = new Player(100, 100, ID.Player);
+        StaticFields.player = new Player(100, 100, ID.PLAYER);
         StaticFields.game = this;
-        camera = new Camera(1,1, ID.Camera);
+        camera = new Camera(1,1, ID.CAMERA);
         handler.addObject(camera);
         this.hud = new HUD();
         this.spawn = new Spawn();
@@ -134,10 +134,12 @@ public class Game extends Canvas implements Runnable {
         int ara= 100;
         int pU = 120;
         int in = 10;
+         handler.addObject(new Platform(100, 400, ID.PLATFORM));
         for(int i = 0; i<10; i++)
-        handler.addObject(new Platform(in+i*pU+i*ara, 600, ID.platform));
+        handler.addObject(new Platform(in+i*pU+i*ara, 600, ID.PLATFORM));
         for(int i = 0; i<10; i++)
-        handler.addObject(new Platform(in+50+i*pU+i*ara, 900, ID.platform));   
-        handler.addObject(new BoxTrigger(500, 500, ID.BoxTrigger));
+        handler.addObject(new Platform(in+50+i*pU+i*ara, 900, ID.PLATFORM));   
+        handler.addObject(new BoxTrigger(500, 500, ID.BOX_TRIGGER));
+        handler.addObject(new Ground(100, 500, ID.GROUND));
   }
 }
